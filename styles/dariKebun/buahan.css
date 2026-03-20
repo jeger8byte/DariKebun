@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+*{
+  font-family: 'Ubuntu', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root{
+  --green: #42B549;
+  --white:#fff;
+  --black:#222;
+  --gray:#ccc;
+  --black2:#999;
+}
+
+body{
+  min-height:100vh;
+  overflow-x: hidden;
+
+  display: grid;
+  grid-template-areas: 
+    "header header"
+    "content1 content1";
+    
+
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 50px 250px auto;
+}
+
+/*=========== HEADER ========*/
+.dariKebun-header{
+  grid-area: header;
+  background-color: var(--green);
+
+  padding: 0 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom:1px solid var(--black2);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  z-index: 1000;
+}
+
+.header-left-section{
+  display: flex;
+  align-items: center;
+}
+
+.toggle{
+  color:var(--white);
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.header-middle-section{
+  position: relative;
+  width: 400px;
+}
+
+.search-bar{
+  width: 100%;
+  height: 38px;
+
+  border-radius: 40px;
+  padding: 5px 20px 5px 40px;
+
+  outline: none;
+  border: 1px solid var(--black2);
+}
+
+.search-icon{
+  position:absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.header-right-section{
+  display:flex;
+  justify-content: center;
+  width: 100px;
+}
+
+.cart-link:hover{
+  border: 1px solid var(--white);
+  width:75px;
+}
+.cart-icon{
+  font-size: 40px;
+  color: var(--white);
+  
+
+}
+
+.cart-quantity{
+
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 300px;
+
+  background-color: var(--white);
+  width: 30px;
+  height: 25px;
+
+  position:fixed;
+  top: 4px;
+  right:30px;
+
+  border-radius: 40%;
+
+  display:flex;
+  justify-content: center;
+  align-items: center;
+ 
+}
+
+
+/*============= SIDEBAR ==========*/
+.navigation ul li.li-buahan a {
+  color: var(--white);
+}
+.navigation ul li .li-buahan{
+  list-style: none;
+  margin: 10px 30px 20px 30px;
+  border-radius: 10px;
+}
+.navigation ul li.li-buahan{
+  background-color: #42B549;
+}
+
+.navigation{
+  position: fixed;
+  top: 50px;
+  left: 0;
+
+  width: 300px;
+  height: 100%;
+
+   
+
+  background-color: var(--white);
+  border-right: 1px solid var(--gray);
+  transform: translateX(-100%);  
+  transition: transform 0.4s ease;
+}
+
+
+
+.navigation ul{
+  margin-top: 40px;
+  ;
+}
+
+.navigation ul li{
+  list-style: none;
+  margin: 10px 30px 20px 30px;
+  border-radius: 10px;
+}
+
+.navigation ul li:hover{
+  background-color: #42B549;
+}
+
+.navigation ul li a{
+  display: flex;
+  text-decoration: none;
+  color: var(--black);
+  padding: 10px;
+  align-items: center;
+  
+}
+
+.navigation ul li:hover a{
+  color: var(--white);
+}
+
+.icon{
+  padding-top:10px;
+  font-size: 28px;
+
+}
+.title{
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+/*main */
+
+
+.main-product{
+  grid-area: content1;
+}
+.judul{
+  font-size: 25px;
+  color: #42B549;
+  font-weight: bold;
+
+  height:80px;
+  border-bottom: 4px solid #42B549;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-container{
+  
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  justify-items: center;
+
+  gap: 20px;
+}
+
+.product-card{
+  display:flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border : 1px solid var(--gray);
+
+  width: 200px;
+  height:250px;
+  
+}
+
+.image-wrapper{
+  width: 100%; 
+  max-width: 250px; /* Ukuran maksimal kotak gambar */
+  margin: 0 auto;
+  padding: 10px; /* Kurangi padding agar tidak terlalu jauh dari tepi */
+
+  /* KUNCI UTAMA: Membuat kotak selalu persegi (1/1) atau 4/3 */
+  aspect-ratio: 1 / 1; 
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Memotong bagian gambar yang keluar dari kotak */
+
+}
+.image-wrapper img {
+  width: 100%;
+  height: 100%; /* Paksa gambar memenuhi tinggi kotak wrapper */
+  border-radius: 8px;
+  
+  /* KUNCI KEDUA: Agar gambar tidak gepeng (terdistorsi) */
+  object-fit: cover; 
+  
+  display: block;
+}
+/* Gaya Nama Produk */
+.product-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  text-transform: capitalize; /* Otomatis jadi "Apel" walau di HTML tulisannya "apel" */
+  margin: 0;
+  /* Membuat teks jadi satu baris, jika kepanjangan akan jadi titik-titik (...) */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Gaya Harga Produk */
+.product-price {
+  font-size: 18px;
+  font-weight: 700; /* Dibuat tebal agar kontras */
+  color: var(--green); /* Atau gunakan var(--green) jika ingin seragam dengan tema */
+  margin: 0;
+}
+.product-content{
+ padding-left: 10px;
+}
+
+
+
+
+
+
+
+
+
+/*=====actiive====*/
+.navigation.active{
+  transform: translateX(0);
+}
+
+.product-container,
+.judul{
+  margin-left: 0px;
+  transition: margin-left 0.4s ease;
+}
+
+.product-container.active,
+.judul.active{
+  margin-left: 300px;
+}
+/*==== */

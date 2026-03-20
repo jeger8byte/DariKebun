@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Keranjang</title>
+    <link rel="stylesheet" href="styles/dariKebun/keranjang.css">
+
+  </head>
+  <body>
+
+    <div class="dariKebun-header">
+        <div class="header-left-section">
+          
+            <div class="toggle"><ion-icon name="reorder-three-outline"></ion-icon></div>
+          
+
+          <a href="" class="header-link">
+            <img class="logo" src="">
+          </a>
+        </div>
+      
+
+        <div class="header-middle-section">
+             <div class="header-title">Keranjang<span> (0 item)</span>
+            </div>     
+        </div>
+
+        <div class="header-right-section">
+
+          <a class="logo" href="index.html">
+            
+            <div class="text-logo">
+              DariKebun
+            </div>
+          </a>
+
+          
+        </div>     
+    </div>
+
+    <div class="sidebar-container">
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="wishtlist.html">
+              <span class="icon"><ion-icon name="heart-outline"></ion-icon></ion-icon></span>
+              <span class="title">Wishlist</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="buahan.html">    
+              <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>          
+              <span class="title">Buah-buahan</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="sayuran.html">
+              <span class="icon"><ion-icon name="leaf-outline"></ion-icon></span>
+              <span class="title">Sayur-sayuran</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="perlengkapan.html">
+              <span class="icon"><ion-icon name="sunny-outline"></ion-icon></span>
+              <span class="title">Perlengkapan</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="pesanan.html">
+              <span class="icon"><ion-icon name="information-circle-outline"></ion-icon></ion-icon></span>
+              <span class="title">Pesanan</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="checkout-container">
+
+      <div class="customer-info">
+       
+        <div class="customer-name">
+          <input type="text"  placeholder="Masukkan Nama Lengkap Penerima">
+        </div>
+        
+        <div class="customer-address">
+          <input type="text"  placeholder="masukkan alamat">
+        </div>
+        
+
+        <div class="payment-methode">  
+          <select>
+          <option> COD </option>
+          <option> E-money </option>
+        </select>
+        </div>
+       
+      </div>
+
+      <div class="cart-container">    
+        <!-- ITEM -->
+        <div class="cart-item">
+          <div class="image-wraper">
+            <img src="" class="cart-image">
+          </div>
+
+          <div class="cart-info">
+            <div class="cart-name">nanas</div>
+              <div class="cart-price">
+                <span class="price-now">Rp8.150</span>
+
+                <div class="cart-qty">
+                  <button class="qty-btn minus">−</button>
+                  <span class="qty-number">1</span>
+                  <button class="qty-btn plus">+</button>
+                </div>
+                      
+              </div>
+          </div>
+        </div>  
+      </div>
+
+      <div class="payment-container">
+
+        <div class="payment-title">Detail pembayaran</div>
+
+        <div class="payment-row">
+          <span>Harga</span>
+          <span class="price-now price-all-product"></span>
+        </div>
+
+        <div class="payment-row">
+          <span>Biaya penanganan dan pengiriman</span>
+          <span class="price-now">14.000</span>
+        </div>
+
+        <div class="payment-row">
+          <span>Biaya pengemasan</span>
+          <span class="price-now">2.000</span>
+        </div>
+
+        <div class="payment-total">
+          <span>Total pembayaran</span>
+          <span class="total-price">55.265</span>
+        </div>
+
+
+        <button class="pesan-button"> Pesan Sekarang</button>
+
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+   
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script type="module" src="script/pages/keranjang.js"></script>
+
+    <script type="module" src="script/sidebar/keranjang-sidebar.js"></script>
+  </body>
+  
+</html>
