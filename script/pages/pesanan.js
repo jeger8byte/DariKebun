@@ -15,7 +15,14 @@ async function init(){
 async function getPesanan(){
 
   try{
-     const response = await fetch("/Darikebun/php/getPesanan.php")
+     const response = await fetch("/Darikebun/php/getPesanan.php");
+
+     //cek apakah user ttelah login
+    if (response.status === 401) {
+    alert('Sesi Anda habis, silakan login kembali!');
+    window.location.href = 'login.html';
+    return;
+    };
      currentData = await response.json();
       console.log(currentData);
 

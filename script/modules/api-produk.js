@@ -1,6 +1,6 @@
-export {loadProduk}
+import {seeDetail} from"./utils.js"
 
-async function loadProduk(kategori){
+export async function loadProduk(kategori){
   const container = document.querySelector(".product-container");
 
   try{
@@ -8,14 +8,16 @@ async function loadProduk(kategori){
     // tanda (/sebelum Darikebun) memastikan browser selalu mencari dari folder www (root localhost).
     const response = await fetch(`/DariKebun/php/getProduct.php?kategori=${kategori}`)
 
-    // Validasi response: Pastikan server menjawab dengan status 200
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
+    //cek apakah user ttelah login
+    if (response.status === 401) {
+    alert('Sesi Anda habis, silakan login kembali!');
+    window.location.href = 'login.html';
+    return;
+}   
     //mengubah dari JSON ke array of object
     const data = await response.json()
     
+   
     //merender produk
     let card= '';
       data.forEach(item => {
@@ -36,23 +38,11 @@ async function loadProduk(kategori){
     });
 
     container.innerHTML = card;
-    tambahEvent(data);
+    seeDetail();
 
   }catch(error){
     console.log(error)
   }
 }
 
-
-function tambahEvent(data) {
-  document.querySelectorAll(".product-card").forEach(card => {
-    card.addEventListener("click", () => {
-      const id = card.dataset.id;
-      
-      // Pindahkan user ke halaman detail dengan membawa ID di URL
-      // Contoh: detailProduk.html?id=123
-      window.location.href = `detailProduk.html?id=${id}`;
-    });
-  });
-}
 

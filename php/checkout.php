@@ -1,13 +1,18 @@
 <?php
 
+ require_once 'cek_token.php';
+ //cek token 
+  $secret = "RAHASIA_DARI_KEBUN_99_PASTI_AMAN"; 
+  $userData = validasiToken($secret);
+
+
+ 
   $conn =  new mysqli("localhost", "root", "", "dari_kebun");
-
   $data = json_decode(file_get_contents('php://input'), true);
-
   $cart = $data['cart'];
   $alamat = $data['alamat'];
   $penerima = $data ['penerima'];
-  $user_id = $data['user_id'];
+  $user_id =  $userData-> uid;
   
   $total = 0;
   foreach($cart as $item){
@@ -25,7 +30,7 @@ $order_id = $conn->insert_id; // mengambil id
 // masukkan ke tabel order_items
 foreach($cart as $item){
 
-    $produk_id = $item["id"];
+    $produk_id = $item["product_id"];
     $quantity = $item["quantity"];
     $harga = $item["price"];
     $image =$item["image"];

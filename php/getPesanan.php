@@ -1,9 +1,13 @@
 <?php
+   require_once 'cek_token.php';
+  //cek token 
+  $secret = "RAHASIA_DARI_KEBUN_99_PASTI_AMAN"; 
+  $userData = validasiToken($secret);
+  $user_id = $userData-> uid;
+  
 $conn = new mysqli ("localhost","root","","dari_kebun");
-
-
 // ambil semua pesanan
-$sql_orders = "SELECT * FROM orders";
+$sql_orders = "SELECT * FROM orders WHERE user_id ='$user_id'";
 $result = $conn->query($sql_orders);
 $data = [];
 

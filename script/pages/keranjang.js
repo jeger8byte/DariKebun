@@ -20,6 +20,12 @@ async function getCart(){
   try{
     const response = await fetch("/Darikebun/php/getCart.php");
 
+    //cek apakah user telah login
+    if (response.status === 401) {
+    alert('Sesi Anda habis, silakan login kembali!');
+    window.location.href = 'login.html';
+    return;}
+
     const data = await response.json();
     currentData = data;
   }catch(err){
@@ -168,7 +174,6 @@ async function checkout(dataProduct){
       "Content-Type": "application/json"
     },
       body: JSON.stringify({
-        user_id: 1,
         alamat: alamat,
         penerima: penerima,
         cart: dataProduct
@@ -176,6 +181,7 @@ async function checkout(dataProduct){
     });
 
     const result = await response.json();
+    console.log(result);
     if (result.status === 'success') {
       alert("Pesanan Berhasil!");
       console.log(result);

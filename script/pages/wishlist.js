@@ -1,6 +1,6 @@
 
 import { updateCartIcon } from "../modules/utils.js";
-
+import{seeDetail} from"../modules/utils.js"
 
 updateCartIcon() ;
 getWish()
@@ -11,6 +11,12 @@ async function getWish(){
   try{
 
      const response = await fetch(`/DariKebun/php/getWishlist.php`)
+
+     //cek apakah user ttelah login
+    if (response.status === 401) {
+    alert('Sesi Anda habis, silakan login kembali!');
+    window.location.href = 'login.html';
+    return;}
 
      const data = await response.json();
 
@@ -26,7 +32,7 @@ async function getWish(){
       let card=''
       data.forEach(product => {
       card += `
-        <div class="product-card">
+        <div class="product-card" data-id="${product.id}">
                   
                 <div class=" product">
                   <div class="image-wrapper">
@@ -45,7 +51,8 @@ async function getWish(){
       
       })
       wrapper.innerHTML = card;
-       deleteWish();
+      deleteWish();
+      seeDetail();
   
   }catch(err){
     console.log(err);

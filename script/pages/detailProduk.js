@@ -12,18 +12,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
         const response = await fetch(`/DariKebun/php/getDetail.php?id=${productId}`);
        
+    // Jika server kirim 401 (dari validasiToken), lempar ke login
+    if (response.status === 401) {
+    alert('Sesi Anda habis, silakan login kembali!');
+    window.location.href = 'login.html';
+    return;
+}  
       
         // Cek apakah response oke sebelum parsing JSON
     if (!response.ok) throw new Error("Gagal mengambil data dari server");
 
       
         const  dataProduct = await response.json();
+        console.log(dataProduct);
 
-        if (dataProduct) {
-            renderProduct(dataProduct); // Fungsi untuk menampilkan ke HTML
-            addToCart(dataProduct);
-            setupWishlistListener(dataProduct)
-          
+       
+        renderProduct(dataProduct.data); // Fungsi untuk menampilkan ke HTML
+        addToCart(dataProduct.data);
+        
+        if (dataProduct.wishlisted) {
+            document.querySelector('.wishlist-button').classList.add('active');
+            setupWishlistListener(dataProduct.data);
+        }else{
+                setupWishlistListener(dataProduct.data)
         }
     } catch (error) {
         console.error("Gagal mengambil data:", error);
@@ -40,13 +51,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Pastikan fungsi ini dipanggil setelah renderProduct selesai
 function setupWishlistListener(dataProduct) {
     const btnWish = document.querySelector('.wishlist-button');
-    
-    btnWish.addEventListener("click", async() => {
-        // Cek status kelas 'active' untuk menentukan aksi
+    let result=[];
+
+    btnWish.addEventListener("click", async () => {
+        // 1. Tentukan aksi berdasarkan apakah tombol sudah punya class 'active'
         const isCurrentlyWish = btnWish.classList.contains('active');
         const action = isCurrentlyWish ? 'remove' : 'add';
-
-          try {
+         
+        try {
             const response = await fetch(`/DariKebun/php/insertWishlist.php`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -58,28 +70,31 @@ function setupWishlistListener(dataProduct) {
                     action: action
                 })
             });
-            
-            const result = await response.json();
 
+          
+            result = await response.json();
+            console.log(result);
+
+            // 2. PINDAHKAN LOGIKA UPDATE UI KE DALAM SINI (Setelah dapat respon JSON)
             if (result.status === 'success') {
-                // Update tampilan UI berdasarkan hasil dari server
                 if (action === 'add') {
                     btnWish.classList.add('active');
-                    console.log("Produk ditambah ke wishlist database");
+                    console.log("Berhasil ditambah ke wishlist");
                 } else {
                     btnWish.classList.remove('active');
-                    console.log("Produk dihapus dari wishlist database");
+                    console.log("Berhasil dihapus dari wishlist");
                 }
             } else {
-                alert("Gagal memperbarui wishlist: " + result.message);
+                alert("Gagal: " + result.message);
             }
-           
+
         } catch (error) {
             console.error("Error:", error);
+            alert("Terjadi kesalahan koneksi");
         }
-         
-       
     });
+
+    
 }
 
 
@@ -153,7 +168,7 @@ async function addToCart(dataProduct){
           method: "POST",
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({
-          id: dataProduct.id,
+          product_id: dataProduct.id,
           name: dataProduct.name,
           price:  dataProduct.price, 
           image: dataProduct.image
