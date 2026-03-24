@@ -253,7 +253,7 @@ body{
   top: 8px;
   right: 8px;
   border: none;
-  background: white ;
+  background:none;
   color:var(--gray);
   width: 22px;
   height: 22px;

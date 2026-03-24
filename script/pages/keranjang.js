@@ -12,7 +12,8 @@ document.querySelector('.pesan-button').addEventListener('click', handleCheckout
 async function init() {
     await getCart();      // Tunggu sampai data masuk ke currentData
     renderCart(currentData); 
-    updateQty();          // Panggil ini SETELAH element di-render
+    updateQty(currentData);          // Panggil ini SETELAH element di-render
+    updateHarga();
 }
 
 async function getCart(){
@@ -22,12 +23,14 @@ async function getCart(){
 
     //cek apakah user telah login
     if (response.status === 401) {
-    alert('Sesi Anda habis, silakan login kembali!');
+    alert('Silakan login kembali!');
     window.location.href = 'login.html';
     return;}
 
     const data = await response.json();
     currentData = data;
+    
+    return currentData;
   }catch(err){
     console.log(err);
   }
@@ -40,7 +43,7 @@ async function renderCart(dataProduct){
   let card = ""
   dataProduct.forEach( product => {
         card += `
-      <div class="cart-item cart-item-${product.id}" >
+      <div class="cart-item cart-item-${product.product_id}" >
         <div class="image-wraper">
           <img src="${product.image}" class="cart-image">
         </div>
@@ -50,10 +53,10 @@ async function renderCart(dataProduct){
             <div class="cart-price">
               <span class="price-now">Rp ${Number(product.price).toLocaleString("id-ID")}</span>
 
-              <div class="cart-qty">
-                <button class="qty-btn minus-btn" data-id="${product.id}">−</button>
+              <div class="cart-qty" data-id="${product.product_id}">
+                <button class="qty-btn minus-btn" >−</button>
                 <span class="qty-number">${product.quantity}</span>
-                <button class="qty-btn plus-btn" data-id="${product.id}">+</button>
+                <button class="qty-btn plus-btn" >+</button>
               </div>
                     
             </div>
@@ -64,102 +67,72 @@ async function renderCart(dataProduct){
   });
   container.innerHTML =card;
 
-  //hitung total harga 
+  
+ 
+}
+async function updateHarga(){
+  const dataProduct = await getCart();
+          //hitung total harga 
   let total =0;
   dataProduct.forEach(product => {
-    total += Number(product.price) * product.quantity;
-    
+    total += Number(product.price) * product.quantity;  
   })
   document.querySelector('.price-all-product').innerHTML = total.toLocaleString("id-ID");
   
   //hitung total pembayaran
   document.querySelector('.total-price').innerHTML= total.toLocaleString("id-ID");
- 
+        
+    
 }
-
 
 function updateQty(){
 
-   let action = "";
-
-
    //event delegation button mines
-   document.querySelector('.cart-qty').addEventListener('click',e => {
+   document.querySelector('.cart-container').addEventListener('click',async (e) => {
 
-    if(e.target.classList.contains('minus-btn')){
-      
-    }
-   })
-  // mengurangi qty
-  document.querySelectorAll('.minus-btn').forEach(btnMinus =>{
-    btnMinus.addEventListener("click",async()=>{ 
-        
-      const id = btnMinus.dataset.id;
-      action ="minus";
-      
-      try{
+        const btnMinus = e.target.closest('.minus-btn');
+        const btnPlus = e.target.closest('.plus-btn');
+
+        if(btnMinus || btnPlus){
+          updateHarga();
+          const parent = e.target.closest('.cart-qty');
+          const qtyNumber = parent.querySelector('.qty-number');
+          const product_id = parent.dataset.id;
+
+          let action ='';
+          if(btnMinus){
+            action ='minus';
+          }else if(btnPlus){
+            action = 'plus'
+          }
+
+           try{
         const response = await fetch("/Darikebun/php/updateCart.php",{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
-          id:id,
+          product_id:product_id,
           action: action
         })
       }) 
 
       const quantity = await response.json();
-      document.querySelector('.qty-number').innerHTML=quantity;
+      qtyNumber.innerText=quantity[0];
+      console.log(typeof quantity[0]);
 
-      init();
-
-      if(quantity === 0){
-        btn.closest('.cart-item').remove();
+      if(quantity[0] === '0'){
+       e.target.closest('.cart-item').remove();
       }
 
       }catch(err){
         console.log("Terdapat kesalahan:",err)
       }
-      
-     
-      
-    })  
-  })
 
-  // menambah qty
- document.querySelectorAll('.plus-btn').forEach(btnPlus =>{
-    btnPlus.addEventListener("click",async ()=>{
 
-      const id = btnPlus.dataset.id;
-      action ="plus";
-      
-      try{
-          const response = await fetch("/Darikebun/php/updateCart.php",{
-          method:"POST",
-          headers:{
-            "Content-Type":"application/json"
-          },
-          body:JSON.stringify({
-            id:id,
-            action: action
-          })
-        }) 
-
-        const quantity = await response.json();
-        
-        document.querySelector('.qty-number').innerHTML=quantity;
-       
-      init();
-
-        
-      }catch(err){
-        console.log("Terdapat kesalahan:",err)
-
-      } 
-       
-    })  
-  })
+        }
+      })
 }
 
 async function checkout(dataProduct){

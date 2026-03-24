@@ -19,7 +19,7 @@ async function getPesanan(){
 
      //cek apakah user ttelah login
     if (response.status === 401) {
-    alert('Sesi Anda habis, silakan login kembali!');
+    alert('Silakan login kembali!');
     window.location.href = 'login.html';
     return;
     };

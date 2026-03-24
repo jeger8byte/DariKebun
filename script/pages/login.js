@@ -34,3 +34,8 @@ e.preventDefault(); // hentikan perilaku bawaan browser
       alert(result.message)
     }
 })
+
+
+
+
+

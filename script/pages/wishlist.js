@@ -14,7 +14,7 @@ async function getWish(){
 
      //cek apakah user ttelah login
     if (response.status === 401) {
-    alert('Sesi Anda habis, silakan login kembali!');
+    alert('Silakan login kembali!');
     window.location.href = 'login.html';
     return;}
 
@@ -32,11 +32,11 @@ async function getWish(){
       let card=''
       data.forEach(product => {
       card += `
-        <div class="product-card" data-id="${product.id}">
+        <div class="product-card" ">
                   
                 <div class=" product">
                   <div class="image-wrapper">
-                    <img class="product-image" src="${product.image}">
+                    <img class="product-image" data-id="${product.id} " src="${product.image}">
                   </div>
                     
                     <div class="product-content">
@@ -62,7 +62,6 @@ async function getWish(){
 } 
 
 function deleteWish(){
-
 document.querySelectorAll('.remove-btn').forEach(btn => {
     btn.addEventListener("click", async () => {
         const id = btn.dataset.id; // Mengambil ID dari atribut data-id

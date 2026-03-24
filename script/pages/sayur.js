@@ -1,7 +1,5 @@
-
-import{updateCartIcon} from "../modules/utils.js"
-import { loadProduk } from "../modules/api-produk.js";
+import {updateCartIcon, searchProductOrLoad,loadProduk} from "../modules/product.js";
 
 updateCartIcon();
-loadProduk("sayuran");
-
+loadProduk("sayuran")
+searchProductOrLoad("sayuran")

@@ -27,8 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         // 3. Buat isi (payload) JWT
         $payload = [
-            "iat" => time(),            // Waktu dibuat
-            "exp" => time() + (3600),
+           
             "uid" => $user['id'],      // ID User dari database
             "name" => $user['username'],
            
@@ -39,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // 5. Simpan di HttpOnly Cookie
         setcookie("user_token", $jwt, [
-            'expires'=> time() +3600,
+          
             'path' => '/',
             'domain' => '',        // Kosongkan untuk localhost
             'secure' => false,     // Ubah ke true jika sudah menggunakan HTTPS

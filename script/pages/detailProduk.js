@@ -1,35 +1,32 @@
 import{updateCartIcon} from "../modules/utils.js"
-updateCartIcon();
 
+
+
+
+updateCartIcon();
 
 document.addEventListener("DOMContentLoaded", async () => {
     // 1. Ambil ID dari URL
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
-
-   
     // 2. Fetch data dari database melalui PHP
     try {
         const response = await fetch(`/DariKebun/php/getDetail.php?id=${productId}`);
        
     // Jika server kirim 401 (dari validasiToken), lempar ke login
     if (response.status === 401) {
-    alert('Sesi Anda habis, silakan login kembali!');
+    alert('Silakan login kembali!');
     window.location.href = 'login.html';
     return;
-}  
+    }  
       
         // Cek apakah response oke sebelum parsing JSON
     if (!response.ok) throw new Error("Gagal mengambil data dari server");
-
-      
-        const  dataProduct = await response.json();
-        console.log(dataProduct);
-
-       
-        renderProduct(dataProduct.data); // Fungsi untuk menampilkan ke HTML
-        addToCart(dataProduct.data);
+       const dataProduct = await response.json();
         
+       renderProduct(dataProduct.data); // Fungsi untuk menampilkan 
+        addToCart(dataProduct.data);
+
         if (dataProduct.wishlisted) {
             document.querySelector('.wishlist-button').classList.add('active');
             setupWishlistListener(dataProduct.data);
@@ -40,6 +37,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.error("Gagal mengambil data:", error);
     }
 });
+
+
 
 
 
@@ -184,7 +183,11 @@ async function addToCart(dataProduct){
 
           const data = await response.json();
           console.log("Respon dari PHP:", data);
+          
           updateCartIcon();
+
+          //update stock
+          document.querySelector('.product-stock span').innerText = data.stock;
           alert("Produk berhasil ditambahkan!");
           
 

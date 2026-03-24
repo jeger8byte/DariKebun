@@ -28,16 +28,34 @@ $quantity = 1;
 // Query Upsert:
 // Jika product_id sudah ada, maka tambahkan (quantity + VALUES(quantity))
 // Jika belum ada, masukkan data baru.
-$sql = "INSERT INTO cart (product_id, user_id, name, price, quantity,image) 
+$sql_insert = "INSERT INTO cart (product_id, user_id, name, price, quantity,image) 
         VALUES (?,?, ?, ?, ?,?) 
         ON DUPLICATE KEY UPDATE 
         quantity = quantity + VALUES(quantity)";
 
-$stmt = $conn->prepare($sql);
+$stmt = $conn->prepare($sql_insert);
 $stmt->bind_param("iisdis", $product_id,$user_id, $name, $price, $quantity,$image);
 
+// 1. Update stok di database (dikurangi 1)
+$sql_update = "UPDATE produk SET stock = stock - 1 WHERE id = ?";
+$stmt_update = $conn->prepare($sql_update);
+$stmt_update->bind_param("i", $product_id);
+$stmt_update->execute();
+
+// 2. Ambil nilai stok terbaru setelah di-update
+$sql_get_stock = "SELECT stock FROM produk WHERE id = ?";
+$stmt_get = $conn->prepare($sql_get_stock);
+$stmt_get->bind_param("i", $product_id);
+$stmt_get->execute();
+$result = $stmt_get->get_result();
+$row = $result->fetch_assoc();
+
+$current_stock = $row['stock'];
+
+
 if ($stmt->execute()) {
-    echo json_encode(['status' => 'success', 'message' => 'Cart diperbarui']);
+    echo json_encode(['status' => 'success', 'message' => 'Cart diperbarui',
+    'stock'=>$current_stock]);
 } else {
     echo json_encode(['status' => 'error', 'message' => $conn->error]);
 }

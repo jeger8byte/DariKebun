@@ -17,7 +17,7 @@ function validasiToken($secret_key) {
 
     if (!$token) {
         http_response_code(401);
-        echo json_encode(["status" => "error", "message" => "Sesi habis, silakan login."]);
+        echo json_encode(["status" => "error"]);
         exit;
     }
 
