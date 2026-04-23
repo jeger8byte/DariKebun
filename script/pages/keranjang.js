@@ -21,7 +21,7 @@ async function getCart(){
     
       if (response.status === 401) {
         alert('Anda telah logout!!');
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
       }
 

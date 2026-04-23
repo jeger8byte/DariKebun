@@ -11,7 +11,7 @@ async function getDashboardStats(){
     //cek apakah user telah login /sesi habis
     if (!response.ok) { 
       alert('Anda telah logout!');
-      window.location.href = 'login.html';
+      window.location.href = 'index.html';
       return;
     } 
 

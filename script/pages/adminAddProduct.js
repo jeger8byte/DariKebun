@@ -6,7 +6,7 @@ async function cekLogin () {
   
     if (!response.ok) {
       alert('Anda telah logout!');
-      window.location.href = 'login.html';
+      window.location.href = 'index.html';
     }
   }catch(err){
     console.error("Error:", err);
