@@ -1,11 +1,14 @@
 <?php
 // insertToCart.php
 
-require_once "cek_token.php";
-  //cek token 
-  $secret = "RAHASIA_DARI_KEBUN_99_PASTI_AMAN"; 
-  $userData = validasiToken($secret);
+require_once  '../config/env.php';
+loadEnv(__DIR__ . '/../.env');
+require_once 'cek_token.php';
+//cek token 
+$secret = $_ENV['JWT_SECRET'];
+$userData = validasiToken($secret);
 
+    
 //ambil request
 $data = json_decode(file_get_contents('php://input'), true);
 
@@ -15,7 +18,7 @@ if(!$data){
 }
 
 // Koneksi database
-$conn = new mysqli("localhost", "root", "", "dari_kebun");
+$conn = new mysqli($_ENV['DB_HOST'], $_ENV['DB_USER'], $_ENV['DB_PASS'], $_ENV['DB_NAME']);
 
 $product_id = $data['product_id'];
 $user_id = $userData -> uid; 
@@ -34,7 +37,7 @@ $sql_insert = "INSERT INTO cart (product_id, user_id, name, price, quantity,imag
         quantity = quantity + VALUES(quantity)";
 
 $stmt = $conn->prepare($sql_insert);
-$stmt->bind_param("iisdis", $product_id,$user_id, $name, $price, $quantity,$image);
+$stmt->bind_param("iisdis", $product_id,$user_id, $name, $price, $quantity, $image);
 
 // 1. Update stok di database (dikurangi 1)
 $sql_update = "UPDATE produk SET stock = stock - 1 WHERE id = ?";
@@ -42,7 +45,7 @@ $stmt_update = $conn->prepare($sql_update);
 $stmt_update->bind_param("i", $product_id);
 $stmt_update->execute();
 
-// 2. Ambil nilai stok terbaru setelah di-update
+//Ambil nilai stok terbaru setelah di-update
 $sql_get_stock = "SELECT stock FROM produk WHERE id = ?";
 $stmt_get = $conn->prepare($sql_get_stock);
 $stmt_get->bind_param("i", $product_id);

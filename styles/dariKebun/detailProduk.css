@@ -136,8 +136,7 @@ body{
   width: 300px;
   height: 100%;
 
-   
-
+  
   background-color: var(--white);
   border-right: 1px solid var(--gray);
   transform: translateX(-100%);  
@@ -195,7 +194,6 @@ body{
   align-items: center;
   justify-content: center;
 
-  
 }
 
 .buy-container{
@@ -207,7 +205,7 @@ body{
   grid-template-columns: 1fr 1fr;
   border-radius: 10px;
   border: 1px solid var(--gray);
-
+  background-color: var(--green);
 
 
 }
@@ -291,7 +289,7 @@ body{
 .product-price {
   font-size: 28px;
   font-weight: 700;
-  color: #27ae60; /* Warna hijau biar segar */
+  color: #fff; /* Warna hijau biar segar */
 }
 
 
@@ -307,7 +305,7 @@ body{
 
 .product-description .judul {
   font-weight: bold;
-  color: #27ae60;
+  color: #fff;
   margin-bottom: 8px;
   font-size: 16px;
 }
@@ -336,7 +334,8 @@ body{
 .add-to-cart-button:hover{
   background: var(--green);
   color: var(--white);
-  border-color: var(--green);
+  border-color: 3px solid var(--white);
+ 
 }
 
 /*==*/
@@ -354,7 +353,7 @@ body{
 
 .wishlist-button{
   border:none;
-  background-color: white;
+  background-color: var(--green);
   
   width:30px;
   height:30px;
@@ -410,25 +409,5 @@ margin-top:25px;
   transform: translateX(0);
 }
 
-.buy-container{
-  margin-left: 0px;
-  transition: margin-left 0.4s ease;
-}
-
-.buy-container.active{
-  margin-left: 300px;
-}
 /*==== */
 
-.alert-box {
-  display: none;
-  position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #42B549;
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-}

@@ -10,7 +10,7 @@ loginBtn.addEventListener('click',()=>{
   container.classList.remove("active")
 })
 
-//mengambil response
+//login
 const signInForm = document.querySelector('.sign-in form')
 
 signInForm.addEventListener('submit',async (e)=>{
@@ -24,12 +24,15 @@ e.preventDefault(); // hentikan perilaku bawaan browser
     });
 
     const result = await response.json();
-  console.log(result);
-  console.log(formData)
+   
+
     //meletakkan token di local storage
-    if( result.status === "success"){
+    if( result.status === "user"){
       alert(result.message)
       window.location.href = 'dashboard.html';
+    }else if(result.status === "admin"){
+      alert(result.message)
+      window.location.href = 'adminDashboard.html';
     }else{
       alert(result.message)
     }

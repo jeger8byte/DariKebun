@@ -1,38 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
 
-*{
-  font-family:Arial, Helvetica, sans-serif;
+* {
+  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-:root{
-  --green: #42B549;
-  --white:#fff;
-  --black:#222;
-  --gray:#ccc;
-  --black2:#999;
+:root {
+  --green: #42b549;
+  --white: #fff;
+  --black: #222;
+  --gray: #ccc;
+  --black2: #999;
 }
 
-body{
-  min-height:100vh;
+body {
+  min-height: 100vh;
   overflow-x: hidden;
 
   display: grid;
-  grid-template-areas: 
+  grid-template-areas:
     "header header"
     "content1 content1";
-    
 
   grid-template-columns: 300px 1fr;
   grid-template-rows: 50px auto;
+
+  background-color: var(--green);
 }
 
-
-
 /*=========== HEADER ========*/
-.dariKebun-header{
+.dariKebun-header {
   grid-area: header;
   background-color: var(--white);
 
@@ -42,7 +41,7 @@ body{
   align-items: center;
   justify-content: space-between;
 
-  border-bottom:1px solid var(--black2);
+  border-bottom: 1px solid var(--black2);
 
   position: fixed;
   top: 0;
@@ -52,13 +51,13 @@ body{
   z-index: 1000;
 }
 
-.header-left-section{
+.header-left-section {
   display: flex;
   align-items: center;
 }
 
-.toggle{
-  color:var(--green);
+.toggle {
+  color: var(--green);
   width: 50px;
   height: 50px;
 
@@ -70,25 +69,23 @@ body{
   cursor: pointer;
 }
 
-.header-middle-section{
- display:grid;
- justify-items: center; 
+.header-middle-section {
+  display: grid;
+  justify-items: center;
   width: 400px;
-
 }
 
-.header-title{
-
+.header-title {
   font-size: 25px;
   font-weight: bold;
-  color:var(--green);
+  color: var(--green);
 }
-.header-title span{
+.header-title span {
   font-size: 25px;
   font-weight: bold;
-  color:#999;
+  color: #999;
 }
-.search-bar{
+.search-bar {
   width: 100%;
   height: 38px;
 
@@ -99,32 +96,26 @@ body{
   border: 1px solid var(--black2);
 }
 
-
-.header-right-section{
-  display:flex;
+.header-right-section {
+  display: flex;
   justify-content: center;
   width: 100px;
 }
 
-.logo{
-text-decoration: none;;
+.logo {
+  text-decoration: none;
+  position: relative;
+  right: 20px;
 }
-.text-logo{
+.text-logo {
   font-size: 25px;
   color: var(--green);
   margin-right: 20px;
-
-}
-
-.text-logo:hover{
-  transform: translateX(-8px);
-  transition: transform 0.5s ease;
 }
 
 /*============= SIDEBAR ==========*/
 
-
-.navigation{
+.navigation {
   position: fixed;
   top: 50px;
   left: 0;
@@ -134,82 +125,78 @@ text-decoration: none;;
 
   background-color: var(--white);
   border-right: 1px solid var(--gray);
-  transform: translateX(-100%);  
+  transform: translateX(-100%);
   transition: transform 0.4s ease;
 }
 
-.navigation ul{
+.navigation ul {
   margin-top: 40px;
-  ;
 }
 
-.navigation ul li{
+.navigation ul li {
   list-style: none;
   margin: 10px 30px 20px 30px;
   border-radius: 10px;
 }
 
-.navigation ul li:hover{
-  background-color: #42B549;
+.navigation ul li:hover {
+  background-color: #42b549;
 }
 
-.navigation ul li a{
+.navigation ul li a {
   display: flex;
   text-decoration: none;
   color: var(--black);
   padding: 10px;
   align-items: center;
-  
 }
 
-.navigation ul li:hover a{
+.navigation ul li:hover a {
   color: var(--white);
 }
 
-.icon{
-  padding-top:10px;
+.icon {
+  padding-top: 10px;
   font-size: 28px;
-
 }
-.title{
+.title {
   margin-left: 10px;
   font-size: 18px;
 }
 
 /*===========CART CONTAINER======*/
-.checkout-container{
+.checkout-container {
   grid-area: content1;
   border: 1px solid#42B549;
+  background-color: var(--white);
 
-  width:600px;
-  height:auto;
-  margin-top:40px;
+  width: 600px;
+  height: auto;
+  margin-top: 40px;
 
-  display:flex;
+  display: flex;
   justify-self: center;
   flex-direction: column;
 
   border: 1px solid var(--gray);
-  border-radius: 5px;
+  border-radius: 10px;
 
-  margin-bottom:100px;
+  margin-bottom: 100px;
 }
 
-.customer-info{
-  margin-top:20px;
-  padding-left:20px;
-  padding-bottom:30px;
-  
+.customer-info {
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-bottom: 30px;
+
   box-shadow: 0 10px 0 rgba(51, 51, 51, 0.05);
-  
 }
-.customer-name{ 
+.customer-name {
   width: 100%;
   margin-bottom: 16px;
-
 }
 
-.customer-name input{
+.customer-name input {
   width: 500px;
   padding: 12px 14px;
 
@@ -222,29 +209,28 @@ text-decoration: none;;
 }
 
 /* Hover effect */
-.customer-name input:hover{
+.customer-name input:hover {
   border-color: var(--green);
 }
 
 /* Saat diklik / fokus */
-.customer-name input:focus{
+.customer-name input:focus {
   border-color: var(--green);
   box-shadow: 0 0 0 3px rgba(66, 181, 73, 0.15);
 }
 
 /* Placeholder style */
-.customer-name input::placeholder{
+.customer-name input::placeholder {
   color: var(--black2);
   font-size: 14px;
 }
 
-.customer-address{
+.customer-address {
   width: 100%;
   margin-bottom: 16px;
-
 }
 
-.customer-address input{
+.customer-address input {
   width: 500px;
   padding: 12px 14px;
 
@@ -257,24 +243,23 @@ text-decoration: none;;
 }
 
 /* Hover effect */
-.customer-address input:hover{
+.customer-address input:hover {
   border-color: var(--green);
 }
 
 /* Saat diklik / fokus */
-.customer-address input:focus{
+.customer-address input:focus {
   border-color: var(--green);
   box-shadow: 0 0 0 3px rgba(66, 181, 73, 0.15);
 }
 
 /* Placeholder style */
-.customer-address input::placeholder{
+.customer-address input::placeholder {
   color: var(--black2);
   font-size: 14px;
 }
 
-
-.payment-methode select{
+.payment-methode select {
   width: 500px;
   padding: 12px 14px;
 
@@ -286,15 +271,13 @@ text-decoration: none;;
   transition: 0.2s ease;
 }
 
-
-
-.cart-container{
-  margin-left:20px;
-  margin-right:20px;
-  margin-top:20px;
+.cart-container {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
   box-shadow: inset;
 }
-.cart-item{
+.cart-item {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -305,51 +288,55 @@ text-decoration: none;;
 }
 
 /* Gambar */
-.image-wraper{
+.image-wraper {
   width: 70px;
   height: 70px;
   flex-shrink: 0;
 }
 
-.cart-image{
+.cart-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
 /* Info produk */
-.cart-info{
+.cart-info {
   flex: 1;
+  position: relative;
+  padding-bottom: 25px;
 }
 
-.cart-name{
+.cart-name {
   font-size: 15px;
   font-weight: 500;
   margin-bottom: 6px;
 }
 
 /* Harga + Qty sejajar */
-.cart-price{
+.cart-price {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.price-now{
+.price-now {
   font-size: 15px;
   font-weight: 600;
 }
 
 /* Qty Control */
-.cart-qty{
+.cart-qty {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding-right:20px;
+  padding-right: 20px;
+
+  position: relative;
 }
 
 /* Tombol bulat */
-.qty-btn{
+.qty-btn {
   width: 32px;
   height: 32px;
 
@@ -363,30 +350,39 @@ text-decoration: none;;
 }
 
 /* Hover effect */
-.qty-btn:active{
+.qty-btn:active {
   background: var(--green);
   color: var(--white);
 }
 
+.delete-btn {
+  color: white;
+  border: none;
+  background: red;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 5px;
+
+  cursor: pointer;
+  position: absolute;
+  right: 42px;
+  top: 40px;
+}
 /* Angka qty */
-.qty-number{
+.qty-number {
   font-size: 16px;
   font-weight: 500;
   min-width: 10px;
   text-align: center;
 }
 
-
-
-.payment-container{
-  
-  max-width: auto; 
- 
+.payment-container {
+  max-width: auto;
 }
 
 /* Judul */
-.payment-title{
-  border-top: 10px solid rgba(51, 51, 51, 0.05);;
+.payment-title {
+  border-top: 10px solid rgba(51, 51, 51, 0.05);
   font-size: 18px;
   font-weight: 600;
 
@@ -397,7 +393,7 @@ text-decoration: none;;
 }
 
 /* Baris */
-.payment-row{
+.payment-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -409,19 +405,18 @@ text-decoration: none;;
 }
 
 /* Garis pemisah */
-.payment-row:not(:last-child){
+.payment-row:not(:last-child) {
   margin-left: 10px;
   margin-right: 20px;
-  
 }
 
 /* Harga */
-.price-now{
+.price-now {
   font-weight: 500;
 }
 
 /* Total */
-.payment-total{
+.payment-total {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -438,16 +433,16 @@ text-decoration: none;;
   font-weight: 600;
 }
 
-.total-price{
+.total-price {
   font-size: 18px;
   font-weight: bold;
   padding-right: 20px;
 }
 
 /* Button */
-.pesan-button{
+.pesan-button {
   margin-top: 20px;
-  margin-left: auto;   /* 🔥 Dorong ke kanan */
+  margin-left: auto; /* 🔥 Dorong ke kanan */
 
   display: block;
 
@@ -456,7 +451,7 @@ text-decoration: none;;
   border: none;
 
   margin-right: 10px;
-  margin-bottom:10px;
+  margin-bottom: 10px;
   background: var(--green);
   color: var(--white);
 
@@ -467,30 +462,16 @@ text-decoration: none;;
   transition: 0.2s ease;
 }
 
-.pesan-button:hover{
+.pesan-button:hover {
   opacity: 0.9;
   transform: translateY(-5px);
 }
 
-.pesan-button:active{
+.pesan-button:active {
   transform: scale(0.97);
 }
 
-
-
-
-
 /*=====active====*/
-.navigation.active{
+.navigation.active {
   transform: translateX(0);
 }
-
-.checkout-container{
-  margin-left: 0px;
-  transition: margin-left 0.4s ease;
-}
-
-.checkout-container.active{
-  margin-left: 300px;
-}
-/*==== */

@@ -8,165 +8,83 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   </head>
-  <body>
-
-    
-
-   
-
-    
-  <header>
-    <div class="dariKebun-header">
-          <div class="header-left-section">
-            
-              <div class="toggle"><ion-icon name="reorder-three-outline"></ion-icon></div>
-            
-
-            <a href="" class="header-link">
-              <img class="logo" src="">
-            </a>
-          </div>
-        
-
-          <div class="header-middle-section">
-              <div class="header-title">Pesanan
+  <body>  
+    <header>
+        <div class="dariKebun-header">
+              <div class="header-left-section">
+                <div class="toggle"><ion-icon name="reorder-three-outline"></ion-icon></div>
+                <a class="logo" href="dashboard.html">
+                  <div class="text-logo">DariKebun</div>
+                </a>
+              </div>
+              <div class="header-middle-section">
+                <div class="header-title">Pesanan</div>     
+              </div>
+              <div class="header-right-section">
+                <a class="cart-link" href="keranjang.html">
+                  <ion-icon class="cart-icon" name="cart-outline"></ion-icon>
+                  <div class="cart-quantity">99+</div>
+               </a> 
               </div>     
           </div>
+    </header> 
 
-          <div class="header-right-section">
-
-            <a class="logo" href="index.html">
-              
-              <div class="text-logo">
-                DariKebun
-              </div>
-            </a>
-
-            
-          </div>     
-      </div>
-  </header>
-
-  
-<main class="container">
- 
-  <div class="card">
-      <div class="order-header">
-        <div class="id-pesanan">Id Pesanan:00001</div>
-        <div class="status">Dikirim</div>
-      </div>
-
-      <div class="order-product">
-        <div class="image-wraper">
-          <img src="images/products/Nanas.avif" class="cart-image">
-        </div>
-        <div class="info-product">
-          <span class="name">Nanas Madu</span>
-          <span class="qty">x1</span>
-          <span class="price">Rp9000</span>
-        </div>
-      </div>
-
-      <div class="hidden-details detail-1" style="display: block;">
-        <div class="order-list">
-           <div class="order-product">
-          <div class="image-wraper">
-            <img src="images/products/Anggur.avif" class="cart-image">
-          </div>
-          <div class="info-product">
-            <span class="name">Anggur Merah</span>
-            <span class="qty">x1</span>
-            <span class="price">Rp9000</span>
-          </div>
-        </div>
-
-        <div class="order-product">
-          <div class="image-wraper">
-            <img src="images/products/Anggur.avif" class="cart-image">
-          </div>
-          <div class="info-product">
-            <span class="name">Anggur Merah</span>
-            <span class="qty">x1</span>
-            <span class="price">Rp9000</span>
-          </div>
-        </div>
-        </div>
-       
-        
-        <div class="shipping-info">
-            <p><strong>Penerima:</strong> Budi Santoso</p>
-            <p><strong>Alamat:</strong> Jl. Mangga No. 12, Palembang</p>
-        </div>
-      </div>
-
-      <div class="order-footer">
-        <span class="total-product">x3 Produk</span>
-        <div class="total-order">
-          Total Pesanan: <span>Rp27000</span>
-        </div>      
-      </div>
-
-      <button class="btn-lihat" >Lihat Detail Produk </button>
-  </div>
-      
+    <main class="container">
      
-</main>
+          
+        
+    </main>
+    <aside class="sidebar-container">
+          <div class="navigation">
+            <ul>
+              <li>
+                <a href="wishlist.html">
+                  <span class="icon"><ion-icon name="heart-outline"></ion-icon></ion-icon></span>
+                  <span class="title">Wishlist</span>
+                </a>
+              </li>
 
+              <li>
+                <a href="buahan.html">    
+                  <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>          
+                  <span class="title">Buah-buahan</span>
+                </a>
+              </li>
 
+              <li>
+                <a href="sayuran.html">
+                  <span class="icon"><ion-icon name="leaf-outline"></ion-icon></span>
+                  <span class="title">Sayur-sayuran</span>
+                </a>
+              </li>
 
- <div class="sidebar-container">
-      <div class="navigation">
-        <ul>
-          <li>
-            <a href="wishlist.html">
-              <span class="icon"><ion-icon name="heart-outline"></ion-icon></ion-icon></span>
-              <span class="title">Wishlist</span>
-            </a>
-          </li>
+              <li>
+                <a href="perlengkapan.html">
+                  <span class="icon"><ion-icon name="sunny-outline"></ion-icon></span>
+                  <span class="title">Perlengkapan</span>
+                </a>
+              </li>
 
-          <li>
-            <a href="buahan.html">    
-              <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>          
-              <span class="title">Buah-buahan</span>
-            </a>
-          </li>
+              <li class="li-pesanan">
+                <a href="#">
+                  <span class="icon"><i class="fa-solid fa-box"></i></span>
+                  <span class="title ">Pesanan</span>
+                </a>
+              </li>
+              <li>
+                <a href="" class="logout">
+                  <span class="icon"><i class="fa-solid fa-door-open"></i></span>
+                  <span class="title">Logout</span>
+                </a>
+              </li>
+            </ul>
+          </div>
 
-          <li>
-            <a href="sayuran.html">
-              <span class="icon"><ion-icon name="leaf-outline"></ion-icon></span>
-              <span class="title">Sayur-sayuran</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="perlengkapan.html">
-              <span class="icon"><ion-icon name="sunny-outline"></ion-icon></span>
-              <span class="title">Perlengkapan</span>
-            </a>
-          </li>
-
-          <li class="li-pesanan">
-            <a href="#">
-              <span class="icon"><i class="fa-solid fa-box"></i></span>
-              <span class="title ">Pesanan</span>
-            </a>
-          </li>
-          <li>
-            <a href="" class="logout">
-              <span class="icon"><i class="fa-solid fa-door-open"></i></span>
-              <span class="title">Logout</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-
-
-   
+    </aside>
+  
     <script type="module" src="script/pages/pesanan.js"></script>   
-     <script type="module" src="script/sidebar/sidebarPesanan.js"></script>   
-   <script type="module" src="script/pages/logout.js"></script>
+    <script type="module" src="script/pages/logout.js"></script>
+    <script type="module" src="script/sidebar/sidebarPesanan.js"></script>   
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   
   </body>

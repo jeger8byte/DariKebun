@@ -1,61 +1,60 @@
-import{updateCartIcon} from "../modules/utils.js"
-
-
-
+import{updateCartIcon} from "../modules/product.js"
 
 updateCartIcon();
 
-document.addEventListener("DOMContentLoaded", async () => {
-    // 1. Ambil ID dari URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
-    // 2. Fetch data dari database melalui PHP
-    try {
-        const response = await fetch(`/DariKebun/php/getDetail.php?id=${productId}`);
-       
-    // Jika server kirim 401 (dari validasiToken), lempar ke login
+// mengambil id dari url untuk digunakan sebagai parameter fetch detail produk
+const getProductId = () => new URLSearchParams(window.location.search).get('id');
+
+async function fetchProductDetail(productId){
+    const response =  await fetch(`/DariKebun/php/getDetail.php?id=${productId}`);
+
     if (response.status === 401) {
-    alert('Silakan login kembali!');
-    window.location.href = 'login.html';
-    return;
-    }  
-      
-        // Cek apakah response oke sebelum parsing JSON
-    if (!response.ok) throw new Error("Gagal mengambil data dari server");
-       const dataProduct = await response.json();
-        
-       renderProduct(dataProduct.data); // Fungsi untuk menampilkan 
-        addToCart(dataProduct.data);
-
-        if (dataProduct.wishlisted) {
-            document.querySelector('.wishlist-button').classList.add('active');
-            setupWishlistListener(dataProduct.data);
-        }else{
-                setupWishlistListener(dataProduct.data)
-        }
-    } catch (error) {
-        console.error("Gagal mengambil data:", error);
+        alert('Anda telah logout!!');
+        window.location.href = 'login.html';
+        return;
     }
-});
+
+    if(!response.ok){
+        throw new Error("FETCH_FAILED")
+    }
+
+    return await response.json();
+}
+
+document.addEventListener("DOMContentLoaded",async () =>{
+    const productId = getProductId();
+    if(!productId) return console.error("ID produk tidak ditemukan");
+
+    try{
+        const { data, wishlisted } = await fetchProductDetail(productId);
+        
+        renderProduct(data);
+        addToCart(data);
+
+        const wishlistBtn = document.querySelector('.wishlist-button');;
+
+        if(wishlisted){
+            wishlistBtn.classList.add('active')
+        }
+
+        setupWishlistListener(data);
+
+    }catch (err){
+  
+        console.error("Gagal memuat detail produk:", err);
+        
+    }
+})
 
 
-
-
-
-
-
- 
-
-//### MENAMBAHKAN dan MENGHAPUS PRODUK KE WISHLIST ### //
-// Pastikan fungsi ini dipanggil setelah renderProduct selesai
 function setupWishlistListener(dataProduct) {
-    const btnWish = document.querySelector('.wishlist-button');
-    let result=[];
 
+    const btnWish = document.querySelector('.wishlist-button');
+    
     btnWish.addEventListener("click", async () => {
-        // 1. Tentukan aksi berdasarkan apakah tombol sudah punya class 'active'
-        const isCurrentlyWish = btnWish.classList.contains('active');
-        const action = isCurrentlyWish ? 'remove' : 'add';
+       
+        const isActive= btnWish.classList.contains('active');
+        const action = isActive ? 'remove' : 'add';
          
         try {
             const response = await fetch(`/DariKebun/php/insertWishlist.php`, {
@@ -66,134 +65,110 @@ function setupWishlistListener(dataProduct) {
                     name: dataProduct.name,
                     price: dataProduct.price,
                     image: dataProduct.image,
-                    action: action
+                    action
                 })
             });
 
-          
-            result = await response.json();
-            console.log(result);
+            const result = await response.json();
 
-            // 2. PINDAHKAN LOGIKA UPDATE UI KE DALAM SINI (Setelah dapat respon JSON)
             if (result.status === 'success') {
-                if (action === 'add') {
-                    btnWish.classList.add('active');
-                    console.log("Berhasil ditambah ke wishlist");
-                } else {
-                    btnWish.classList.remove('active');
-                    console.log("Berhasil dihapus dari wishlist");
-                }
+                btnWish.classList.toggle('active', action === 'add');
+
+                console.log(` Produk ${action === 'add'?'ditambah ke': 'dihapus dari'} Wishlist `)
             } else {
-                alert("Gagal: " + result.message);
+                throw new Error(result.message);
             }
 
         } catch (error) {
-            console.error("Error:", error);
-            alert("Terjadi kesalahan koneksi");
+            console.error("Wishlist Error:", error);
+            alert( error.message || "Terjadi kesalahan koneksi");
         }
     });
 
     
 }
 
-
 //fungsi render halaman
 function renderProduct(dataProduct){
-//### MERENDER TAMPILAN HALAMAN ###//
+
 const wrapper= document.querySelector('.buy-wrapper');
  
   wrapper.innerHTML = `
- <div class="buy-container">
+        <div class="buy-container">
           <div class="buy-container">
             <div class="buy-box">
               <div class="image-wrapper">
                 <img class="product-image" src="${dataProduct.image}">
               </div>
-
-
               <div class="purchase-panel">
                 <div class="row top-row">
                   <div class="product-stock">
                     Stok Total: <span>${dataProduct.stock}</span>
                   </div>
                 </div>
-
-               
-
                 <button class="add-to-cart-button">
                   +Keranjang
                 </button>
-
               </div> 
             </div>
-
-
             <div class="buy-detail">
-
               <div class="product-header">
                 <div class="product-name">${dataProduct.name}</div>
                 <button class="wishlist-button"> <i class="fa-solid fa-heart"></i></button>
               </div>
-
               <div class="product-price">Rp${Number(dataProduct.price).toLocaleString("id-ID")}</div>
-
               <div class="product-description">
                 <div class="judul">Detail Produk</div>
                 <div class="isi">${dataProduct.deskripsi}
                 </div>
               </div>
-
             </div>
          </div>
-</div>
-
-    `;
-
-  
+        </div> `;
 }
 
+function addToCart(dataProduct) {
+    const btnAdd = document.querySelector('.add-to-cart-button');
 
-//add to cart
-async function addToCart(dataProduct){
-  
+    btnAdd.addEventListener("click", async () => {
+        try {
+           
+            const response = await fetch(`/DariKebun/php/insertToCart.php`, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    product_id: dataProduct.id,
+                    name: dataProduct.name,
+                    price: dataProduct.price,
+                    image: dataProduct.image
+                })
+            });
 
-    const button = document.querySelector('.add-to-cart-button');
-    
-    button.addEventListener("click",async () => {
+           
+            if (!response.ok) throw new Error(`Gagal menghubungi server (${response.status})`);
 
-    try{
+            const result = await response.json();
 
-      const response = await fetch(`/DariKebun/php/insertToCart.php`, {
-          method: "POST",
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify({
-          product_id: dataProduct.id,
-          name: dataProduct.name,
-          price:  dataProduct.price, 
-          image: dataProduct.image
-          
-          })
-      });
+            if (result.status !== 'success') {
+                throw new Error(result.message || "Gagal menambahkan ke keranjang");
+            }
 
-      //cek apakah server memberikan response
-      if (!response.ok) {
-              throw new Error(`Server error: ${response.status}`);
-             
-          }
+           
+            updateCartUI(result.stock);
+            alert("Produk berhasil ditambahkan!");
 
-          const data = await response.json();
-          console.log("Respon dari PHP:", data);
-          
-          updateCartIcon();
+        } catch (error) {
+            console.error("Cart Error:", error);
+            alert(error.message || "Terjadi kesalahan koneksi");
+        }
+    });
+}
 
-          //update stock
-          document.querySelector('.product-stock span').innerText = data.stock;
-          alert("Produk berhasil ditambahkan!");
-          
-
-    }catch(error){
-      console.log("Error:",error);
+// Fungsi tambahan agar logika update UI tidak menumpuk di fungsi utama
+function updateCartUI(newStock) {
+    updateCartIcon();
+    const stockElement = document.querySelector('.product-stock span');
+    if (stockElement) {
+        stockElement.innerText = newStock;
     }
-    })
-     
 }

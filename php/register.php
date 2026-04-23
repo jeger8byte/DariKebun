@@ -1,12 +1,14 @@
 <?php
 // Koneksi ke database
-$conn = new mysqli("localhost", "root", "", "dari_kebun");
+
+$conn = new mysqli($_ENV['DB_HOST'], $_ENV['DB_USER'], $_ENV['DB_PASS'], $_ENV['DB_NAME']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Mengambil data dari atribut 'name' di input HTML Anda
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $role = 'user'; // Set role default sebagai 'user' 
 
     //cek apakah akun telah ada 
     $sql = "SELECT * FROM users WHERE email = '$email'";
@@ -23,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $username, $email, $hashed_password);
+        $stmt = $conn->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $username, $email, $hashed_password, $role);
 
         if ($stmt->execute()) {
             // Berhasil: Alihkan ke halaman login atau tampilkan pesan

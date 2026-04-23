@@ -22,7 +22,7 @@ function validasiToken($secret_key) {
     }
 
     try {
-        // 2. Decode seperti biasa
+        // 2. Decode
         $decoded = JWT::decode($token, new Key($secret_key, 'HS256'));
         return $decoded;
     } catch (Exception $e) {

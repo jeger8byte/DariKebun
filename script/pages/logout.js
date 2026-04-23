@@ -6,9 +6,4 @@ logOutBtn.addEventListener('click', async ()=>{
     method:"POST"
   })
 
-  if(response.json().status === 'success'){
-    alert('Anda telah logout!');
-    window.location.href ='login.html'
-  }
-
 })

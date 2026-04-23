@@ -1,15 +1,16 @@
+import {updateCartIcon} from "../modules/product.js";
 
+updateCartIcon();
 
 let currentData = [];
+
 init();
-
-
 
 let card ='';
 
 async function init(){
  await getPesanan();
- renderOrder(currentData);
+ renderOrder(currentData.orders);
 }
 
 async function getPesanan(){
@@ -19,12 +20,13 @@ async function getPesanan(){
 
      //cek apakah user ttelah login
     if (response.status === 401) {
-    alert('Silakan login kembali!');
-    window.location.href = 'login.html';
-    return;
+      alert('Anda telah logout!');
+      window.location.href = 'login.html';
+      return;
     };
+
      currentData = await response.json();
-      console.log(currentData);
+     console.log(currentData);
 
   }catch(err){
     console.log(err)
@@ -37,9 +39,7 @@ function renderOrder(data){
 
   let listItem = '';
   let card ='';
-  
   data.forEach( produk =>{
-
     produk.daftar_barang.slice(1).forEach(barang => {
        listItem +=`
         <div class="order-product">
@@ -90,16 +90,8 @@ function renderOrder(data){
           </div>
 
           <button class="btn-lihat btn-lihat-${produk.id}" >Lihat Detail Produk </button>
-    </div> `
-
-
-
-    
-
-    
+    </div> ` 
   })
-
-  console.log("list item",card)
   container.innerHTML = card;
 
   // EVENT DELEGATION 
@@ -117,19 +109,14 @@ function renderOrder(data){
       detailDiv.style.display = "block";
       tombol.innerText = "Tutup Detail";
 
-      } else {
-      detailDiv.style.display = "none";
-      tombol.innerText = "Lihat Detail Produk";
-
+      } 
+      else {
+        detailDiv.style.display = "none";
+        tombol.innerText = "Lihat Detail Produk";
       }
 
     }
   })
-
-
-
-
-
 }
 
 

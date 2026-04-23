@@ -1,17 +1,23 @@
 <?php
-   require_once 'cek_token.php';
-  //cek token 
-  $secret = "RAHASIA_DARI_KEBUN_99_PASTI_AMAN"; 
-  $userData = validasiToken($secret);
+
+require_once  '../config/env.php';
+loadEnv(__DIR__ . '/../.env');
+require_once 'cek_token.php';
+
+//cek token 
+$secret = $_ENV['JWT_SECRET'];
+$userData = validasiToken($secret);
+
+    
+  $conn = new mysqli ($_ENV['DB_HOST'], $_ENV['DB_USER'], $_ENV['DB_PASS'], $_ENV['DB_NAME']);
   $user_id = $userData-> uid;
-  
-$conn = new mysqli ("localhost","root","","dari_kebun");
-// ambil semua pesanan
-$sql_orders = "SELECT * FROM orders WHERE user_id ='$user_id'";
-$result = $conn->query($sql_orders);
-$data = [];
 
+  // ambil semua pesanan
+  $sql_orders = "SELECT * FROM orders WHERE user_id ='$user_id'";
+  $result = $conn->query($sql_orders);
+  $data = [];
 
+ $order=[];
 while($row = $result->fetch_assoc()){
   $order_id= $row['id'];
 
@@ -27,11 +33,18 @@ while($row = $result->fetch_assoc()){
 
   //menempel daftar barang ke pesanan 
   $row['daftar_barang'] = $items;
-  $data[] = $row;
-
+  $order[]=  $row;
 }
+$data['orders'] = $order;
 
+//mengambil semua data order untuk ditampilkan di dashboard admin
+  $sql = "SELECT COUNT(*) as total FROM orders";
+ $stmt = $conn->prepare($sql);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $total_orders = $result->fetch_assoc();
+  $data['total_orders'] = $total_orders;
 
 echo json_encode($data);
-
+$conn->close();
 ?>

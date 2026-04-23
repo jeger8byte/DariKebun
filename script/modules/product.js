@@ -1,6 +1,3 @@
-// update angka di icon cart
-
-
 
 export async function loadProduk(kategori){
   const container = document.querySelector(".product-container");
@@ -10,12 +7,21 @@ export async function loadProduk(kategori){
     // tanda (/sebelum Darikebun) memastikan browser selalu mencari dari folder www (root localhost).
     const response = await fetch(`/DariKebun/php/getProduct.php?kategori=${kategori}`)
       
+    
+     //cek apakah user telah login /sesi habis
+    if (response.status === 401) { 
+      alert('Anda telah logout!');
+      window.location.href = 'login.html';
+      return;
+    } 
+
     //mengubah dari JSON ke array of object
     const data = await response.json()
-  
+    console.log(data.products);
+    
     //merender produk
     let card= '';
-      data.forEach(item => {
+      data.products.forEach(item => {
         card += `
       <div class="product-card" >
         <div class="image-wrapper">
@@ -59,7 +65,7 @@ try{
   }
 }
 
-export function seeDetail() {
+ export function seeDetail() {
 
   document.querySelector('.product-container').addEventListener('click',(e)=>{
     const imageClick = e.target.closest('.product-image');
@@ -73,9 +79,6 @@ export function seeDetail() {
   });
 
 }
-
-
-
 export async function searchProductOrLoad(kategori){
 
   const input = document.querySelector('.search-bar')
@@ -89,13 +92,7 @@ export async function searchProductOrLoad(kategori){
         if(keyword.length >1){
           const response =  await fetch(`/Darikebun/php/searchProduk.php?keyword=${keyword}&kategori=${kategori}`)
 
-            //cek apakah user telah login /sesi habis
-            if (response.status === 401) { 
-              alert('Silakan login kembali!');
-              window.location.href = 'login.html';
-              return;
-            } 
-
+           
             const data = await response.json();
             console.log(data);
               

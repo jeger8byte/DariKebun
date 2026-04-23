@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Produk - Toko Hijau</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/dariKebun/adminAddProduct.css">
+</head>
+<body>
+
+    <main class="main-content">
+        <header class="page-header">
+            <h1>Edit Produk</h1>
+            <nav class="breadcrumb">
+                Dashboard &nbsp;>&nbsp; Produk &nbsp;>&nbsp; Edit Produk
+            </nav>
+        </header>
+
+        <section class="form-container">
+            <h2 class="form-title">Form Edit Produk</h2>
+            
+            <form action="#" method="POST">
+                <div class="form-grid">
+                    <div class="form-left">
+                        <div class="form-group">
+                            <label for="nama_produk">Nama Produk <span>*</span></label>
+                            <input type="text" id="nama_produk" name="nama_produk" placeholder="Masukkan nama produk" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="harga">Harga <span>*</span></label>
+                            <div class="input-with-prefix">
+                                <span class="prefix">Rp</span>
+                                <input type="number" id="harga" name="harga" placeholder="Masukkan harga produk" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="deskripsi">Deskripsi</label>
+                            <textarea id="deskripsi" name="deskripsi" rows="6" placeholder="Masukkan deskripsi produk"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-right">
+                        <div class="form-group">
+                            <label for="kategori">Kategori <span>*</span></label>
+                            <select id= "kategori" name="kategori" required>
+                                <option value="sayuran">Sayuran</option>
+                                <option value="buahan">Buahan</option>
+                                <option value="perlengkapan">Perlengkapan</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stok">Stok <span>*</span></label>
+                            <input type="number" id="stok" name="stok" placeholder="Masukkan jumlah stok" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Gambar Produk <span>*</span></label>
+                            <label for="image"class="upload-box">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <div>Klik atau drag & drop gambar di sini</div>
+                                <p>Format: JPG, PNG, WEBP (Maks. 2MB)</p>
+                            </label>
+                             <input type="file" class="image" id="image" name="image" accept=".jpg,.jpeg,.png,.webp"style="display:none"  >
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="form-footer">
+                    <button type="button" class="btn btn-cancel">Batal</button>
+                    <button type="submit" class="btn btn-submit">
+                        <i class="fas fa-save"></i> Simpan Produk
+                    </button>
+                </footer>
+            </form>
+        </section>
+    </main>
+
+</body>
+<script type="module" src="script/pages/adminEditProduct.js"></script>
+
+</html>

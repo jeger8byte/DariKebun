@@ -1,10 +1,15 @@
 <?php
-   require_once 'cek_token.php';
-  //cek token 
-  $secret = "RAHASIA_DARI_KEBUN_99_PASTI_AMAN"; 
-  $userData = validasiToken($secret);
 
-$conn = new mysqli("localhost","root","","dari_kebun");
+require_once  '../config/env.php';
+loadEnv(__DIR__ . '/../.env');
+require_once 'cek_token.php';
+
+//cek token 
+$secret = $_ENV['JWT_SECRET'];
+$userData = validasiToken($secret);
+
+    
+$conn = new mysqli($_ENV['DB_HOST'], $_ENV['DB_USER'], $_ENV['DB_PASS'], $_ENV['DB_NAME']);
 
 $user_id = $userData -> uid;
 $sql = "SELECT * FROM wishlist WHERE user_id ='$user_id '";

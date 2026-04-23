@@ -1,11 +1,9 @@
 
-import { updateCartIcon } from "../modules/utils.js";
-import{seeDetail} from"../modules/utils.js"
+import { updateCartIcon,seeDetail } from "../modules/product.js";
+
 
 updateCartIcon() ;
 getWish()
-
-
 
 async function getWish(){
   try{
@@ -14,7 +12,7 @@ async function getWish(){
 
      //cek apakah user ttelah login
     if (response.status === 401) {
-    alert('Silakan login kembali!');
+    alert('Anda telah logout!');
     window.location.href = 'login.html';
     return;}
 

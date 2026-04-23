@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/dariKebun/adminDasboard.css">
+</head>
+<body>
+
+    <div class="content-area">
+
+        <div class="content-header">
+            <h1>Dashboard Admin</h1>
+            <div class="top-right-actions">
+               <button class="logout-btn">
+                 <i class="fas fa-sign-out-alt"></i>
+                Logout
+                </button>  
+            </div>
+        </div>
+
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
+                <div class="stat-info">
+                    <span class="stat-title ">Total Produk</span>
+                    <span class="stat-value total-product">120</span>
+                    <span class="stat-subtitle">Produk tersedia</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+                <div class="stat-info">
+                    <span class="stat-title ">Total Pesanan</span>
+                    <span class="stat-value total-order">80</span>
+                    <span class="stat-subtitle">Pesanan masuk</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-info">
+                    <span class="stat-title ">Total Pelanggan</span>
+                    <span class="stat-value total-customer">50</span>
+                    <span class="stat-subtitle">Pelanggan terdaftar</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-wallet"></i></div>
+                <div class="stat-info">
+                    <span class="stat-title">Total Penjualan</span>
+                    <span class="stat-value total-revenue">Rp 999</span>
+                    <span class="stat-subtitle">Total pendapatan</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-section-header">
+            <h2 class="table-section-title">Produk Terbaru</h2>
+            <button class="add-product-btn">
+                <i class="fas fa-plus"></i> Tambah Produk
+            </button>
+        </div>
+
+        <div class="product-table-wrapper">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">No</th>
+                        <th></th> <th>Nama Produk</th>
+                        <th>Kategori</th>
+                        <th>Harga</th>
+                        <th>Stok</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+<script type="module" src="script/pages/adminDashboard.js"></script>
+
+</html>

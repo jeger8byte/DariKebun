@@ -3,21 +3,25 @@
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-$product_id = $data['product_id'];
+$product_id = $data['productId'];
 $action = $data['action'];
 
 // Koneksi database
-$conn = new mysqli("localhost", "root", "", "dari_kebun");
+
+$conn = new mysqli($_ENV['DB_HOST'], $_ENV['DB_USER'], $_ENV['DB_PASS'], $_ENV['DB_NAME']);
 
 if($action === 'plus'){
   // tambah quantity +1
   $sql = "UPDATE cart SET quantity = quantity + 1 WHERE product_id='$product_id'";
   $conn->query($sql);
 
-}else{
+}else if($action === 'minus'){
    $sql = "UPDATE cart SET quantity = quantity - 1 WHERE product_id='$product_id'";
   $conn->query($sql);
 
+}else{
+  $sql = "UPDATE cart SET quantity = 0 WHERE product_id='$product_id'";
+  $conn->query($sql);
 }
 
 // ambil qty terbaru
