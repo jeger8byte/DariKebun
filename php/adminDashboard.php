@@ -7,7 +7,7 @@ loadEnv(__DIR__ . '/../.env');
 $secret = $_ENV['JWT_SECRET'];
 $userData = validasiToken($secret);
 
-$conn = new mysqli($_ENV['DB_HOST'], $_ENV['DB_USER'], $_ENV['DB_PASS'], $_ENV['DB_NAME']);
+$conn = new mysqli("localhost","root","","dari_kebun");
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -23,6 +23,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    // ambil data gambar dulu dari database
+    $sql = "SELECT image FROM produk WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $productId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $data = $result->fetch_assoc();
+
+    if (!$data) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "Produk tidak ditemukan"
+        ]);
+        exit;
+    }
+     $imagePath = "../" . $data['image']; 
+    //  hapus file gambar kalau ada
+    if (file_exists($imagePath)) {
+        unlink($imagePath);
+    }
+
+
+
+
+    //hapus produk dari database
     $sql_delete = "DELETE FROM produk WHERE id = ?";
     $stmt = $conn->prepare($sql_delete);
     $stmt->bind_param("i", $productId);
